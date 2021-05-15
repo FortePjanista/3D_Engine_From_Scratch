@@ -17,6 +17,8 @@ struct Matrix
 
 	inline Matrix<Type, Size> operator + (const Matrix<Type, Size> & right) const;
 	inline Matrix<Type, Size> & operator += (const Matrix<Type, Size> & other);
+	inline Matrix<Type, Size> operator - (const Matrix<Type, Size> & right) const;
+	inline Matrix<Type, Size> & operator -= (const Matrix<Type, Size> & other);
 };
 
 #include "matrix.tpp"

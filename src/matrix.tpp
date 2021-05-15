@@ -60,3 +60,24 @@ inline Matrix<Type, Size> & Matrix<Type, Size>::operator += (const Matrix<Type, 
 	}
 	return *this;
 }
+
+template<typename Type, size_t Size>
+inline Matrix<Type, Size> Matrix<Type, Size>::operator - (const Matrix<Type, Size> & right) const
+{
+	Matrix<Type, Size> tmp(*this);
+	tmp -= right;
+	return tmp;
+}
+
+template<typename Type, size_t Size>
+inline Matrix<Type, Size> & Matrix<Type, Size>::operator -= (const Matrix<Type, Size> & other)
+{
+	for (int i = 0; i < Size; i++)
+	{
+		for (int j = 0; j < Size; j++)
+		{
+			m[i][j] -= other[i][j];
+		}
+	}
+	return *this;
+}
