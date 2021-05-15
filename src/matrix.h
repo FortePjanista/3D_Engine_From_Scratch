@@ -3,26 +3,26 @@
 
 #include <initializer_list>
 
-template<typename Type, size_t Size>
+template<typename Type, size_t Rows, size_t Columns>
 struct Matrix
 {
 	Matrix();
 	Matrix(std::initializer_list<std::initializer_list<Type>> list);
-	Type m[Size][Size] = {0};
+	Type m[Rows][Columns] = {0};
 
-	template<typename T, size_t S>
-	friend std::ostream& operator << (std::ostream & out, const Matrix<T, S> & matrix);
+	template<typename T, size_t R, size_t C>
+	friend std::ostream& operator << (std::ostream & out, const Matrix<T, R, C> & matrix);
 
 	inline Type * operator [] (size_t index) const;
 
-	inline Matrix<Type, Size> operator + (const Matrix<Type, Size> & right) const;
-	inline Matrix<Type, Size> & operator += (const Matrix<Type, Size> & other);
-	inline Matrix<Type, Size> operator - (const Matrix<Type, Size> & right) const;
-	inline Matrix<Type, Size> & operator -= (const Matrix<Type, Size> & other);
+	inline Matrix<Type, Rows, Columns> & operator += (const Matrix<Type, Rows, Columns> & other);
+	inline Matrix<Type, Rows, Columns> operator + (const Matrix<Type, Rows, Columns> & right) const;
+	inline Matrix<Type, Rows, Columns> & operator -= (const Matrix<Type, Rows, Columns> & other);
+	inline Matrix<Type, Rows, Columns> operator - (const Matrix<Type, Rows, Columns> & right) const;
 };
 
 #include "matrix.tpp"
 
-typedef Matrix<float, 4> Mat4x4f;
+typedef Matrix<float, 4, 4> Mat4x4f;
 
 #endif // MATRIX_H

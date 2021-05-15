@@ -2,30 +2,30 @@
 #include <algorithm>
 #include "error.h"
 
-template<typename Type, size_t Size>
-Matrix<Type, Size>::Matrix<Type, Size>() {}
+template<typename Type, size_t Rows, size_t Columns>
+Matrix<Type, Rows, Columns>::Matrix<Type, Rows, Columns>() {}
 
-template<typename Type, size_t Size>
-Matrix<Type, Size>::Matrix<Type, Size>(std::initializer_list<std::initializer_list<Type>> list)
+template<typename Type, size_t Rows, size_t Columns>
+Matrix<Type, Rows, Columns>::Matrix<Type, Rows, Columns>(std::initializer_list<std::initializer_list<Type>> list)
 {
-	DEBUG_ASSERT(list.size() == Size, "Size in initializer_list does not match the declared size in Matrix");
+	DEBUG_ASSERT(list.size() == Rows, "Size in initializer_list does not match the declared size in Matrix");
 	auto inner_list = list.begin();
 	for (int i = 0; i < list.size(); i++)
 	{
-		DEBUG_ASSERT(inner_list->size() == Size, "Size in initializer_list does not match the declared size in Matrix");
+		DEBUG_ASSERT(inner_list->size() == Columns, "Size in initializer_list does not match the declared size in Matrix");
 		std::copy(inner_list->begin(), inner_list->end(), m[i]);
 		inner_list++;
 	}
 }
 
-template<typename Type, size_t Size>
-std::ostream& operator << (std::ostream & out, const Matrix<Type, Size> & matrix)
+template<typename Type, size_t Rows, size_t Columns>
+std::ostream& operator << (std::ostream & out, const Matrix<Type, Rows, Columns> & matrix)
 {
 	out << std::endl;
-	for (int i = 0; i < Size; i++)
+	for (int i = 0; i < Rows; i++)
 	{
 		out << "[ ";
-		for (int j = 0; j < Size; j++)
+		for (int j = 0; j < Columns; j++)
 		{
 			out << matrix.m[i][j] << " ";
 		}
@@ -34,26 +34,18 @@ std::ostream& operator << (std::ostream & out, const Matrix<Type, Size> & matrix
 	return out;
 }
 
-template<typename Type, size_t Size>
-inline Type * Matrix<Type, Size>::operator [] (size_t index) const
+template<typename Type, size_t Rows, size_t Columns>
+inline Type * Matrix<Type, Rows, Columns>::operator [] (size_t index) const
 {
 	return (Type *)(&m[index]);
 }
 
-template<typename Type, size_t Size>
-inline Matrix<Type, Size> Matrix<Type, Size>::operator + (const Matrix<Type, Size> & right) const
+template<typename Type, size_t Rows, size_t Columns>
+inline Matrix<Type, Rows, Columns> & Matrix<Type, Rows, Columns>::operator += (const Matrix<Type, Rows, Columns> & other)
 {
-	Matrix<Type, Size> tmp(*this);
-	tmp += right;
-	return tmp;
-}
-
-template<typename Type, size_t Size>
-inline Matrix<Type, Size> & Matrix<Type, Size>::operator += (const Matrix<Type, Size> & other)
-{
-	for (int i = 0; i < Size; i++)
+	for (int i = 0; i < Rows; i++)
 	{
-		for (int j = 0; j < Size; j++)
+		for (int j = 0; j < Columns; j++)
 		{
 			m[i][j] += other[i][j];
 		}
@@ -61,23 +53,31 @@ inline Matrix<Type, Size> & Matrix<Type, Size>::operator += (const Matrix<Type, 
 	return *this;
 }
 
-template<typename Type, size_t Size>
-inline Matrix<Type, Size> Matrix<Type, Size>::operator - (const Matrix<Type, Size> & right) const
+template<typename Type, size_t Rows, size_t Columns>
+inline Matrix<Type, Rows, Columns> Matrix<Type, Rows, Columns>::operator + (const Matrix<Type, Rows, Columns> & right) const
 {
-	Matrix<Type, Size> tmp(*this);
-	tmp -= right;
+	Matrix<Type, Rows, Columns> tmp(*this);
+	tmp += right;
 	return tmp;
 }
 
-template<typename Type, size_t Size>
-inline Matrix<Type, Size> & Matrix<Type, Size>::operator -= (const Matrix<Type, Size> & other)
+template<typename Type, size_t Rows, size_t Columns>
+inline Matrix<Type, Rows, Columns> & Matrix<Type, Rows, Columns>::operator -= (const Matrix<Type, Rows, Columns> & other)
 {
-	for (int i = 0; i < Size; i++)
+	for (int i = 0; i < Rows; i++)
 	{
-		for (int j = 0; j < Size; j++)
+		for (int j = 0; j < Columns; j++)
 		{
 			m[i][j] -= other[i][j];
 		}
 	}
 	return *this;
+}
+
+template<typename Type, size_t Rows, size_t Columns>
+inline Matrix<Type, Rows, Columns> Matrix<Type, Rows, Columns>::operator - (const Matrix<Type, Rows, Columns> & right) const
+{
+	Matrix<Type, Rows, Columns> tmp(*this);
+	tmp -= right;
+	return tmp;
 }
