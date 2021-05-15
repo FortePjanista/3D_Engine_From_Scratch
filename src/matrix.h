@@ -16,6 +16,7 @@ struct Matrix
 	inline Type * operator [] (size_t index) const;
 
 	inline Matrix<Type, Size> operator + (const Matrix<Type, Size> & right) const;
+	inline Matrix<Type, Size> & operator += (const Matrix<Type, Size> & other);
 };
 
 #include "matrix.tpp"

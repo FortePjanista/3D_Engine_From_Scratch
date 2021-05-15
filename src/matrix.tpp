@@ -43,13 +43,20 @@ inline Type * Matrix<Type, Size>::operator [] (size_t index) const
 template<typename Type, size_t Size>
 inline Matrix<Type, Size> Matrix<Type, Size>::operator + (const Matrix<Type, Size> & right) const
 {
-	Matrix<Type, Size> tmp;
+	Matrix<Type, Size> tmp(*this);
+	tmp += right;
+	return tmp;
+}
+
+template<typename Type, size_t Size>
+inline Matrix<Type, Size> & Matrix<Type, Size>::operator += (const Matrix<Type, Size> & other)
+{
 	for (int i = 0; i < Size; i++)
 	{
 		for (int j = 0; j < Size; j++)
 		{
-			tmp[i][j] = m[i][j] + right[i][j];
+			m[i][j] += other[i][j];
 		}
 	}
-	return tmp;
+	return *this;
 }
