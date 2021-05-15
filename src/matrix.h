@@ -3,15 +3,19 @@
 
 #include <initializer_list>
 
-template<typename Type, int Size>
+template<typename Type, size_t Size>
 struct Matrix
 {
 	Matrix();
 	Matrix(std::initializer_list<std::initializer_list<Type>> list);
 	Type m[Size][Size] = {0};
 
-	template<typename T, int S>
+	template<typename T, size_t S>
 	friend std::ostream& operator << (std::ostream & out, const Matrix<T, S> & matrix);
+
+	inline Type * operator [] (size_t index) const;
+
+	inline Matrix<Type, Size> operator + (const Matrix<Type, Size> & right) const;
 };
 
 #include "matrix.tpp"
