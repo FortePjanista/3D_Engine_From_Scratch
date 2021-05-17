@@ -9,7 +9,6 @@ struct Matrix
 {
 	Matrix();
 	Matrix(std::initializer_list<std::initializer_list<Type>> list);
-	Type m[Rows][Columns] = {0};
 
 	template<typename T, size_t R, size_t C>
 	friend std::ostream & operator << (std::ostream & out, const Matrix<T, R, C> & matrix);
@@ -23,6 +22,9 @@ struct Matrix
 
 	template<size_t RowsOfTheSecondMatrix, size_t ColumnsOfSecondMatrix>
 	inline Matrix<Type, Rows, ColumnsOfSecondMatrix> operator * (const Matrix<Type, RowsOfTheSecondMatrix, ColumnsOfSecondMatrix> & right) const;
+
+protected:
+	Type m[Rows][Columns] = { 0 };
 };
 
 #include "matrix.tpp"

@@ -24,9 +24,11 @@
   <ItemGroup>
     <ClInclude Include="src\error.h" />
     <ClInclude Include="src\matrix.h" />
+    <ClInclude Include="src\vector.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\matrix.tpp" />
+    <None Include="src\vector.tpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
