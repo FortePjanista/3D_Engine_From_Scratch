@@ -1,5 +1,3 @@
-#include "array2d.h"
-
 template<typename Type>
 Array2D<Type>::Array2D() : array(nullptr), width(0), height(0), reserve(0) {}
 
